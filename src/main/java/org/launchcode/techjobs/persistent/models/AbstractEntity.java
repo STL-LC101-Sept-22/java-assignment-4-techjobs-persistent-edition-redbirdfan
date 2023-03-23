@@ -1,10 +1,10 @@
 package org.launchcode.techjobs.persistent.models;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Required;
-
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
@@ -13,8 +13,8 @@ public abstract class AbstractEntity {
 @GeneratedValue
     private int id;
 
-@NotBlank
-@Length(max=125)
+@NotBlank(message = "Field is required")
+@Size(max=125)
     private String name;
 
     public int getId() {

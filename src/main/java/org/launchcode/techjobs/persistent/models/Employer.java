@@ -1,20 +1,33 @@
 package org.launchcode.techjobs.persistent.models;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Employer extends AbstractEntity {
-    @NotBlank
-    @Length(max=125)
+    @NotBlank(message = "Field is required")
+    @Size(min=1,max=100)
     public String location;
-
-    public void setLocation(String location) {
+    @OneToMany
+    @JoinColumn(name="employer_id")
+    private List<Job> jobs = new ArrayList<>();
+    public String setLocation(String location) {
         this.location = location;
+        return location;
     }
 
-    public Employer(){
+    public String getLocation() {
+        return location;
+    }
 
+   public Employer(){
+
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
     }
 }

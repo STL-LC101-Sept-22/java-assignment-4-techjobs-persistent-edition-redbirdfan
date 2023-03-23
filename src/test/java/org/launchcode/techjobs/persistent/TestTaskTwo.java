@@ -546,7 +546,7 @@ public class TestTaskTwo extends AbstractTest {
     /*
     * Tests SQL query for task 2
     * */
-/*    @Test
+    @Test
     public void testSqlQuery() throws IOException {
         String queryFileContents = getFileContents("queries.sql");
 
@@ -555,4 +555,4 @@ public class TestTaskTwo extends AbstractTest {
         boolean queryFound = queryMatcher.find();
         assertTrue(queryFound, "Task 2 SQL query is incorrect. Test your query against your database to find the error.");
     }
-*/}
+}
