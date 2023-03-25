@@ -11,9 +11,11 @@ public class Employer extends AbstractEntity {
     @NotBlank(message = "Field is required")
     @Size(min=1,max=100)
     public String location;
+
     @OneToMany
     @JoinColumn(name="employer_id")
-    private List<Job> jobs = new ArrayList<>();
+    public List<Job> jobs = new ArrayList<>();
+
     public String setLocation(String location) {
         this.location = location;
         return location;
@@ -27,7 +29,7 @@ public class Employer extends AbstractEntity {
 
     }
 
-    public List<Job> getJobs() {
+    public List<Job> getJob() {
         return jobs;
     }
 }

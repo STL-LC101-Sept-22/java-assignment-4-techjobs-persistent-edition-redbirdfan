@@ -28,6 +28,7 @@ public class Skill extends AbstractEntity {
         return jobs;
     }
 
+    //tried removing to get skills to list out, no luck
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class HomeController {
     private JobRepository jobRepository;
     @RequestMapping("")
     public String index(Model model) {
-
+        model.addAttribute("job", "Jobs");
         model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute("skill", skillRepository.findAll());
         return "index";
@@ -38,8 +39,8 @@ public class HomeController {
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
-        model.addAttribute("job", employerRepository.findAll());
-        model.addAttribute("skill", skillRepository.findAll());
+        model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute(new Job());
         return "add";
     }
@@ -47,22 +48,25 @@ public class HomeController {
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
                                     Errors errors, Model model, @RequestParam int employerId,
-                                    @RequestParam List<Integer> skill) {
+                                    @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+            model.addAttribute("job", "Add Job");
 
             return "add";
-        }  //Unsure on why, may not be correct
-            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skill);
-            newJob.setSkills(skillObjs);
+        }  //may not be correct
+        //Am I missing an if statement?
+            List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
+
+        newJob.setSkills(skillObjs);
+
 
         Optional<Employer> optionalEmployer = employerRepository.findById(employerId);
-            if (optionalEmployer .isPresent()) {
+            if (optionalEmployer.isPresent()) {
                 Employer employer = optionalEmployer.get();
                 newJob.setEmployer(employer);
             }
-            jobRepository.save(new Job());
+            jobRepository.save(newJob);
 
         return "redirect:";
     }

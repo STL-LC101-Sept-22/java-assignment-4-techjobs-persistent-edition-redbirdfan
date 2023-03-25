@@ -11,14 +11,13 @@ import java.util.List;
 public class Job extends AbstractEntity{
 
 
-    @NotBlank(message = "Employer must have a name")
-    @Size(min=1,max=100)
+  //  @NotBlank(message = "Employer must have a name")
+  //  @Size(min=1,max=100)
     @ManyToOne
-    private Employer employer;
-
+    public Employer employer;
 
     @ManyToMany
-    private List<Skill> skills;
+    public List<Skill> skills;
 
     public Job() {
     }
